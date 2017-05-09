@@ -6,9 +6,10 @@ public class Main {
 	static long msecs;
 
 	public static void main(String[] args) {
-		if (args[0].isEmpty()) {
+		if (args.length == 0) {
 			aufgabe1();
-		} else {
+		}
+		else {
 			int a = Integer.parseInt(args[0]);
 			aufgabe2(a, 1000);
 		}
