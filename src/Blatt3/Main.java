@@ -10,7 +10,7 @@ public class Main {
 			aufgabe1();
 		} else {
 			float a = Float.parseFloat(args[0]);						
-			aufgabe2((int)a*1000, 1000);
+			aufgabe2((int)(a*1000), 1000);
 		}
 
 	}
@@ -32,25 +32,52 @@ public class Main {
 
 	public static void calc(int[] array, int time, int size) {
 		bubble(array);
-		if (msecs >=  time - 50  && msecs <= time + 50 ) {		//Check, ist msecs gültig
+		if (msecs >=  time - 50  && msecs <= time + 50 ) {		//Check, ist msecs gï¿½ltig
 			System.out.println("Laufzeit:" + msecs + " ms");
-			System.out.println("Feldgröße:" + size);
+			System.out.println("FeldgrÃ¶ÃŸe:" + size);
 			System.out.println("passt");			
 			return;												//Abbruch, sonst werden Folgende if beartbeitet
 		}
-		if (msecs < time-50) {										//ZU kiene Zet, also erhöhen der Feldgröße
+		if (msecs < time-50) {										//ZU kiene Zet, also erhï¿½hen der Feldgrï¿½ï¿½e
 			System.out.println("Laufzeit:" + msecs+ " ms");			
-			System.out.println("Feldgröße:" + size);
+			System.out.println("FeldgrÃ¶ÃŸ0e:" + size);
 			aufgabe2(time, 2 * size);
 		}
-		if (msecs > time+50) {										//Binäre Suche 	
+		if (msecs > time+50) {										//Binï¿½re Suche 	
 			System.out.println("Laufzeit:" + msecs+ " ms");
-			System.out.println("Feldgröße:" + size);
+			System.out.println("FeldgrÃ¶ÃŸe:" + size);
 			if (size != 0) {
-				aufgabe2(time, size * 3 / 4);					//Annäherung auf time, indem die letzte erhöhung der Size halbiert wird
-				}
+				//aufgabe2(time, size * 3 / 4);					//Annï¿½herung auf time, indem die letzte erhï¿½hung der Size halbiert wird
+				binarySearch(size/2,size, time);
+			}
 
 		}
+	}
+	public static void binarySearch(int sizeBot,int sizeTop, int time){
+		int[] array = new int[(sizeTop+sizeBot)/2];
+		fillArray(array);
+		bubble(array);
+		if (msecs >=  time - 50  && msecs <= time + 50 ) {		//Check, ist msecs gï¿½ltig
+			System.out.println("Laufzeit:" + msecs + " ms");
+			System.out.println("FeldgrÃ¶ÃŸe:" + (sizeTop+sizeBot)/2);
+			System.out.println("passt");			
+			return;
+		}
+	if (msecs < time-50) {		
+		System.out.println("Laufzeit:" + msecs + " ms");
+		System.out.println("FeldgrÃ¶ÃŸe:" + (sizeTop+sizeBot)/2);
+		binarySearch((sizeBot+sizeTop)/2,sizeTop, time);
+
+	}
+	if (msecs > time+50) {
+		System.out.println("Laufzeit:" + msecs+ " ms");
+		System.out.println("FeldgrÃ¶ÃŸe:" + (sizeTop+sizeBot)/2);
+		if ((sizeTop+sizeBot)/2 != 0) {
+			//aufgabe2(time, size * 3 / 4);					//Annï¿½herung auf time, indem die letzte erhï¿½hung der Size halbiert wird
+			binarySearch(sizeBot,((sizeTop+sizeBot)/2), time);
+		}
+	
+	}
 	}
 
 	public static void bubble(int[] array) {					//Messung Bubblesort outsourced, der Rekursion wegen 
@@ -66,7 +93,7 @@ public class Main {
 		int temp;	
 		for (int i = 0; i < n; i++) {							//pointer erster Durchlauf
 			for (int j = n - 1; i < j; j--) {					//pointer zweiter Durchlauf
-				if (array[j - 1] > array[j]) {					//Größenvergleich
+				if (array[j - 1] > array[j]) {					//Grï¿½ï¿½envergleich
 					temp = array[j];							//-
 					array[j] = array[j - 1];				//-Dreieckstauch
 					array[j - 1] = temp;					//-
@@ -75,7 +102,7 @@ public class Main {
 		}
 	}
 
-	public static void fillArray(int[] array) {				//Fülle Array absteigend
+	public static void fillArray(int[] array) {				//Fï¿½lle Array absteigend
 		for (int i = 0; i < array.length; i++) {
 			array[i] = array.length - i;
 
