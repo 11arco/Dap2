@@ -10,7 +10,15 @@ public class Main {
 		try {
 			size = Integer.parseInt(args[0]);
 		} catch (Exception e) {
+			System.out.println("Falsche Eingabe");
 			System.out.println(e);
+			return;
+		}
+		if (size < 0) {
+			System.out.println("falsche Eingabe");
+			System.out.println("positive Zahl erwartet");
+
+			return;
 		}
 		int[] arr = new int[size];
 		fillRan(arr);
