@@ -13,6 +13,7 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println("Falsche Eingabe");
 			System.out.println(e);
+			return;
 
 		}
 		if (path != null) {
@@ -22,6 +23,7 @@ public class Main {
 			} catch (FileNotFoundException e) {
 				System.out.println("RandomAccesFile Error");
 				e.printStackTrace();
+				return;
 			}
 			String zeile = null;
 			try {
@@ -29,6 +31,7 @@ public class Main {
 			} catch (IOException e) {
 				System.out.println("readLine Error");
 				e.printStackTrace();
+				return;
 			}
 			StringTokenizer st = new StringTokenizer(zeile, ",");
 			int start = Integer.parseInt(st.nextToken());
@@ -47,6 +50,7 @@ public class Main {
 			} catch (IOException e) {
 				System.out.println("Fehler beim parseInt");
 				e.printStackTrace();
+				return;
 			}
 
 		}
