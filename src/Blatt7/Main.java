@@ -7,13 +7,14 @@ public class Main {
 	static long tEnd;
 	static long msecs;
 	static long avg = 0;
-
+	static int[][] vier;
+	static int pointer=1;
 	public static void main(String[] args) {
 
-		int leng = 0; // initialisiere eine Varibale f¸r die L‰nge der zu
+		int leng = 0; // initialisiere eine Varibale f√ºr die L√§nge der zu
 						// vergleichenden Arrays
 
-		if (args.length != 1) { // Nur eine Eingabe (l‰nge) erlauben
+		if (args.length != 1) { // Nur eine Eingabe (l√§nge) erlauben
 			System.out.println("Falsche Eingabe");
 			return;
 		}
@@ -25,9 +26,12 @@ public class Main {
 			System.out.println("Problem bim 'parseInt'");
 			return;
 		}
-		if (leng >= 24550) { // ab einer grˆﬂe von 25000 gibt es Probleme mit
-								// String to Array
-			System.out.println("Eingabe zu groﬂ");
+		if (leng <= 0) {
+			System.out.println("Eingabe zu klein");
+			return;
+		}
+		if (leng >= 147050) { // ab einer gr√∂√üe von 25000 gibt es Probleme 
+			System.out.println("Eingabe zu gro√ü");
 			return;
 		}
 
@@ -35,56 +39,65 @@ public class Main {
 
 	}
 
-	public static void show(int leng) { // (schˆne) Ausgabe der errechneten Zeit
+	public static void show(int leng) { // (sch√∂ne) Ausgabe der errechneten Zeit
 										// und widerholhter Aufruf der
 										// Berechnung
 		String x;
 		String y;
 
 		for (int i = 0; i < 5; i++) {
-			x = randStr(leng, new Random());
+			x = randStr(leng, new Random()); // random Strings der l√§nge leng
+												// machen
 			y = randStr(leng, new Random());
+		//	System.out.println("String 1: " + x);
+		//	System.out.println("String 2:" + y);
 			timeCalc(x, y);
-			avg = (avg + msecs) / 2;
+			avg = (avg + msecs) / 2; // Durchschnitts Laufzeit ermitteln
 			System.out.println("|msecs: " + msecs + "|Durchlauf " + (i + 1) + "|");
+			System.out.println();
+			vier = null;
+			System.gc();
 
 		}
 		System.out.println("Durschnittslaufzeit: " + avg + " msecs");
 	}
 
-	public static char[][] lcs(char[] x, char[] y) { // Durchlauf der Arrays
+	public static int[][] lcs(char[] x, char[] y) { // Durchlauf der Arrays
 		int m = x.length;
 		int n = y.length;
-		char[][] c = new char[m][n];
-		for (int i = 0; i < m; i++) {
+		int[][] c = new int[m+1][n+1];
+		
+		for (int i = 0; i <= m; i++) { // f√ºlle erste Zeile mit
 			c[i][0] = 0;
 		}
-		for (int i = 0; i < n; i++) {
-			c[0][i] = 0;
+		for (int i = 0; i <= n; i++) {
+			c[0][i] = 0; // f√ºlle erste Spalte mit
 		}
-		for (int i = 1; i < m; i++) {
-			for (int j = 1; j < n; j++) {
-				lb(x, y, c, i, j);
+		for (int i = 1; i <= m; i++) {
+			for (int j = 1; j <= n; j++) {
+				lb(x, y, c, i, j); // L√§ngenberechnung
 			}
 		}
 
-		return null;
+		return c;
 	}
 
-	public static void lb(char[] x, char[] y, char[][] c, int i, int j) { // Reukrsionsgleichung
-		if (x[i] == y[j]) {
+	public static void lb(char[] x, char[] y, int[][] c, int i, int j) { // Rekursionsgleichung
+		if (x[i-1] == y[j-1]) {
 			c[i][j] = (char) (c[i - 1][j - 1] + 1);
+			pointer = j;
 		} else {
 			if (c[i - 1][j] >= c[i][j - 1]) {
 				c[i][j] = c[i - 1][j];
 			} else {
+
 				c[i][j] = c[i][j - 1];
 			}
 		}
 	}
 
 	static String randStr(int n, Random r) { // erzeuge random String aus einem
-												// Random Ojekt
+												// Random Objekt
 		String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		StringBuilder res = new StringBuilder(n);
 		while (--n >= 0) {
@@ -95,10 +108,31 @@ public class Main {
 
 	public static void timeCalc(String x, String y) { // Zeitmesung
 		tStart = System.currentTimeMillis();
-		lcs(x.toCharArray(), y.toCharArray());
+		vier = lcs(x.toCharArray(), y.toCharArray());
 		tEnd = System.currentTimeMillis();
 
 		msecs = tEnd - tStart;
+		int check =0;
+		//out(vier);
+		System.out.println(vier[vier.length-1][vier[0].length-1]);
+		for(int i =0; i<vier.length; i++){
+			for (int j =1 ; j< vier[i].length; j++){
+				if(vier[i][j] != vier[i][j-1] && vier[i][j] > check){
+					
+					System.out.print(x.toCharArray()[i-1]);
+					check++;
+				}
+			}
+		}
+	}
+
+	public static void out(int[][] x) {
+		for (int i = 0; i < x.length; i++) {
+			for (int j = 0; j < x[0].length; j++) {
+				System.out.print(x[i][j]);
+			}
+			System.out.println();
+		}
 	}
 
 }
