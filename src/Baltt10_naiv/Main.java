@@ -29,6 +29,25 @@ public class Main {
 		}
 		return true;
 	}
+	public static boolean onlyNeg(int[] values){
+		for (int i = 0; i < values.length; i++) {
+			if (values[i] >= 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+	public static int maxNeg(int[] values){
+		int max = values[0];
+			for(int i =0; i < values.length; i++){
+				if(values[i] > max){
+					max = values[i];
+				}
+			}
+		return max;
+		
+	}
+	
 
 	public static int naiv(int[] values) {
 		int maxSum = 0;
@@ -36,6 +55,9 @@ public class Main {
 		int q = 0;
 		if (onlyPos(values)) {
 			System.out.println(sum(values));
+		}else if(onlyNeg(values)){
+			return maxNeg(values);
+			
 		} else {
 			for (int i = 0; i <= values.length; i++) {
 				if (sum > maxSum) {
