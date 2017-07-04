@@ -24,9 +24,17 @@ public class Main {
 		System.out.println();
 		a.insert(Integer.parseInt(args[1]));
 		a.printHeap();
-		// a.extractMax();
-		// a.printHeap();
-		// a.extractMax();
-		// a.printHeap();
+		prio(a);
+		a.printHeap();
+
+	}
+
+	public static void prio(Heap arr) {
+		for (int i = 0; i < arr.values.length; i++) {
+			System.out.println("remove: " + arr.extractMax());
+			// arr.printHeap();
+			// System.out.println();
+
+		}
 	}
 }
