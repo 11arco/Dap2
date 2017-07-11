@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 
 public class Graph {
-	private ArrayList<Node> nodes = new ArrayList<Node>();
+	private ArrayList<Node> nodes = new ArrayList<Node>(0);
 
 	public Graph() {
 		System.out.println("new Graph");
@@ -42,6 +42,7 @@ public class Graph {
 	public void addEdge(int src, int dst) {
 		if (this.contains(src) && this.contains(dst)) {
 			this.getNode(src).add(this.getNode(dst));
+			this.getNode(dst).add(this.getNode(src));
 		}
 	}
 
@@ -69,6 +70,10 @@ public class Graph {
 		}
 		System.out.println("yeay");
 		return g;
+	}
+
+	public ArrayList<Node> getNodes() {
+		return nodes;
 	}
 
 }

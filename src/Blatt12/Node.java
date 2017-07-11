@@ -3,7 +3,7 @@ package Blatt12;
 import java.util.ArrayList;
 
 public class Node {
-	private ArrayList<Edge> nodes = new ArrayList<Edge>();
+	private ArrayList<Edge> edges = new ArrayList<Edge>(0);
 	private int id;
 
 	public Node(int id) {
@@ -11,7 +11,7 @@ public class Node {
 	}
 
 	public void add(Node dst) {
-		nodes.add(new Edge(this, dst));
+		edges.add(new Edge(this, dst));
 	}
 
 	public boolean equals(Object other) {
@@ -26,17 +26,17 @@ public class Node {
 			}
 
 		} else {
-			System.out.println("Vergleiche wird nicht mit einer Node ausgeführt");
+			System.out.println("Vergleiche wird nicht mit einer Node ausgefï¿½hrt");
 		}
 		return false;
 	}
 
 	public ArrayList<Edge> getNodes() {
-		return nodes;
+		return edges;
 	}
 
 	public void setNodes(ArrayList<Edge> nodes) {
-		this.nodes = nodes;
+		this.edges = nodes;
 	}
 
 	public int getId() {
